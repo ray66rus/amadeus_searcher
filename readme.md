@@ -22,49 +22,17 @@ information.
 
 ## Usage
 
-
-### Searching one-way trips
-
-It is possible to search one-way flights from some origin to multiple destinations for multiple
-consequent dates, like:
+Now the application supports only the simplest search queries - you can search flights from
+some origin to multiple destinations for multiple consequent dates, like:
 
 ```
-./searcher.py
-    one_way \
+./searcher.py \
     --origin MAD --destinations BCN,MUC --date 2024-12-10 --timeframe 5 \
     --client_id <your_client_id> --client-secret <your_client_secret>
 ```
 
 which will search for flights from Madrid to Barcelona and Munich for 2024-12-10, 2024-12-11,
 2024-12-12, 2024-12-13 and 2024-12-14.
-
-
-### "Batch" searching
-
-It is also possible to search flights using a request file in CSV format. Every record in this file
-looks  like `<origin>,<destination>,<departure_date>,<return_date>`. Return date can be missed to
-search one-way flights. Each entry is on the separate line. Example:
-
-```
-MAD,BCN,2024-12-10,
-MAD,BCN,2024-12-11,2024-12-21
-BCN,MUC,2024-12-20,
-MUC,MAD,2024-12-21,
-```
-
-If you search using this file, the results will be:
-* One-way flights from Madrid to Barcelona departing on 2024-12-10
-* Return flights from Madrid to Barcelona departing on 2024-12-10 with the return date 2024-12-21
-* One-way flights from Barcelona to Munich departing on 2024-12-20
-* One-way flights from Munich to Madrid departing on 2024-12-21
-
-
-Syntax for such search is the following:
-```
-./searcher.py batch <file_name>
-```
-
-### Displaying the results
 
 For every found flight, the application outputs to the screen the basic information about it.
 Example:
@@ -73,9 +41,8 @@ Departure: 2024-12-14T06:00:00, Durations: PT7H35M, Price: 137.95 EUR, Seats lef
 ```
 
 Also, for every origin-destination pair a separate file in the json format is created in the
-`last_search` subdirectory of the current directory (if there were more than one search for the
-same origin-destination pair, there will be several files). These files contain the complete
-records returned by Amadeus API, which includes a lot of information about every offer found.
+`last_search` subdirectory of the current directory. This file contains the complete records
+returned by Amadeus API, which includes a lot of information about every offer found.
 
 ## Additional notes
 
